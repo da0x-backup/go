@@ -9,8 +9,8 @@ type getResponse struct {
 }
 
 type data struct {
-    Id string `json:"id"`
-    EmployeeSalary string `json:"employee_salary"`
+    Id int `json:"id"`
+    EmployeeSalary int `json:"employee_salary"`
 }
 
 // TestApiGET will test rest.Get function is working as expected
@@ -28,8 +28,8 @@ func TestApiGET(t *testing.T) {
     if response.Status != "success" {
         t.Errorf("Expected response.Status to be success, got %v instead", response.Status)
     }
-    if response.Data[0].Id != "1" {
-        t.Errorf("Expected response.Data[0].Id to be 1, got %v instead", response.Data[0].Id)
+    if response.Data[0].Id != 1 {
+        t.Errorf("Expected response.Data[0].Id to be 1, got %d instead", response.Data[0].Id)
     }
 }
 
