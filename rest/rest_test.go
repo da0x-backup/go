@@ -9,8 +9,8 @@ type getResponse struct {
 }
 
 type data struct {
-    Id int `json:"id"`
-    EmployeeSalary int `json:"employee_salary"`
+    Id string `json:"id"`
+    EmployeeSalary string `json:"employee_salary"`
 }
 
 // TestApiGET will test rest.Get function is working as expected
@@ -28,8 +28,8 @@ func TestApiGET(t *testing.T) {
     if response.Status != "success" {
         t.Errorf("Expected response.Status to be success, got %v instead", response.Status)
     }
-    if response.Data[0].Id != 1 {
-        t.Errorf("Expected response.Data[0].Id to be 1, got %d instead", response.Data[0].Id)
+    if response.Data[0].Id != "1" {
+        t.Errorf("Expected response.Data[0].Id to be 1, got %s instead", response.Data[0].Id)
     }
 }
 
@@ -53,7 +53,7 @@ type postResponse struct {
 func TestApiPOST(t *testing.T) {
     var body postBody
     body.Name = "Joe Plum"
-    body.Salary = "$100,000,000"
+    body.Salary = "123"
     body.Age = "25"
 
     var response postResponse
@@ -72,8 +72,8 @@ func TestApiPOST(t *testing.T) {
     if response.Data.Name != "Joe Plum" {
         t.Errorf("expected response.Data.Name to be Joe Plum, got %s instead", response.Data.Name)
     }
-    if response.Data.Salary != "$100,000,000" {
-        t.Errorf("expected response.Data.Salary to be $100,000,000, got %s instead", response.Data.Salary)
+    if response.Data.Salary != "123" {
+        t.Errorf("expected response.Data.Salary to be 123, got %s instead", response.Data.Salary)
     }
     if response.Data.Age != "25" {
         t.Errorf("expected response.Data.Age to be 25, got %s instead", response.Data.Age)

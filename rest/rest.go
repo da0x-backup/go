@@ -51,24 +51,27 @@ func Post(url string, body, response interface{}, headers map[string]string) (in
     if err != nil {
         return 0, err
     }
+    for key, value := range headers {
+        request.Header.Set(key,value)
+    }
     request.Header.Set("Content-Type", "application/json")
     request.Header.Set("Connection", "close")
     var client = &http.Client{Timeout: 30 * time.Second}
     resp, err := client.Do(request)
     if err != nil {
-        if resp!= nil {
-            return resp.StatusCode, err
-        }
         return 0, err
     }
+    defer resp.Body.Close()
     read, err := ioutil.ReadAll(resp.Body)
     if err != nil {
         return resp.StatusCode, err
     }
-    resp.Body.Close()
-    err = json.Unmarshal(read,resp)
-    if err != nil {
-        return resp.StatusCode, err
+    println(string(read))
+    if len(read) > 0 && response != nil {
+        err = json.Unmarshal(read,response)
+        if err != nil {
+            return resp.StatusCode, err
+        }
     }
     return resp.StatusCode, nil
 }
@@ -84,21 +87,21 @@ func PostAcceptOctetStream(url string, body, response *string, headers map[strin
     if err != nil {
         return 0, err
     }
+    for key, value := range headers {
+        request.Header.Set(key,value)
+    }
     request.Header.Set("Content-Type", "application/json")
     request.Header.Set("Connection", "close")
     var client = &http.Client{Timeout: 30 * time.Second}
     resp, err := client.Do(request)
     if err != nil {
-        if resp != nil {
-            return resp.StatusCode, err
-        }
         return 0, err
     }
+    defer resp.Body.Close()
     read, err := ioutil.ReadAll(resp.Body)
     if err != nil {
         return resp.StatusCode, err
     }
-    resp.Body.Close()
     *response = string(read)
     return resp.StatusCode, nil
 }
