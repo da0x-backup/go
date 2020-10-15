@@ -78,7 +78,7 @@ func Post(url string, body, response interface{}, headers map[string]string) (in
 
 // PostAcceptOctetStream will attempt to post the request to the given url and will give back
 // the response from the server as a string.
-func PostAcceptOctetStream(url string, body, response *string, headers map[string]string) (int,error) {
+func PostAcceptOctetStream(url string, body interface{}, response *string, headers map[string]string) (int,error) {
     requestBody, err := json.Marshal(body)
     if err != nil {
         return 0, err
