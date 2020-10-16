@@ -1,4 +1,23 @@
+//
+//   Copyright 2020 Justin Gehr
+//
+//   Licensed under the Apache License, Version 2.0 (the "License");
+//   you may not use this file except in compliance with the License
+//   You may obtain a copy of the License at
+//
+//   http://www.apache.org/licenses/LICENSE-2
+//   
+//   Unless required by applicable law or agreed to in writing, 
+//   distributed under the License is distributed on an "AS IS" BASIS
+//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied
+//   See the License for the specific language governing permissions 
+//   limitations under the License
+//
+
+// package rest implements a simple approach to http calls that will embedd certain default
+// headers like content type to application/json.
 package rest
+
 import (
     "testing"
 )
@@ -16,7 +35,7 @@ type data struct {
 // TestApiGET will test rest.Get function is working as expected
 func TestApiGET(t *testing.T) {
     var response getResponse
-    statusCode, err := Get("http://dummy.restapiexample.com/api/v1/employees", &response, nil)
+    statusCode, err := Get("http://dummy.restapiexample.com/api/v1/employees", &response)
     if err != nil {
         t.Errorf("Got err %v while trying rest.Get():", err)
         return
@@ -57,7 +76,7 @@ func TestApiPOST(t *testing.T) {
     body.Age = "25"
 
     var response postResponse
-    statusCode, err := Post("http://dummy.restapiexample.com/api/v1/create", body, &response, nil)
+    statusCode, err := Post("http://dummy.restapiexample.com/api/v1/create", body, &response)
     if err != nil {
         t.Errorf("Got err %v while trying to use api post", err)
         return
